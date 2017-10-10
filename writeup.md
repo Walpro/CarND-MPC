@@ -30,7 +30,7 @@ To control the car two actuators are used, the throttle for vehicle speed contro
 
 The timestamp lenght is choosen experementally, I tried at first the value of 20 but the computations was intensive and the car get's off the road due to predecting too far in the future, using a lower value of 10 with an elapsed duration between timesteps of 0.05 showed better results.
 
-###3 . Latency
+### 3 . Latency
 
 To deal with latency the state of the car is updated 100ms in the future before it is feeded to the MPC optimizer.
 By doing that the MPC was able to predict the optimle controls that considers the latency of control actions.
