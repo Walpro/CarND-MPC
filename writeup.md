@@ -18,7 +18,7 @@ In this project a kinematic Model is used to model the vehicle, the model consis
 
 The state incorporates also the distance of vehicle from trajectory and the difference of vehicle orientation and trajectory orientation.
 
-To next state is computed as follows:
+The next state is computed as follows:
 * x​t+1​​ = x​t​​+v​t​​∗cos(ψ​t​​)∗dt
 * y​t+1​​ = y​t​​+v​t​​∗sin(ψ​t​​)∗dt
 * ψ​t+1 ​​= ψ​t​​+​vt/L​f​​​​​​​​∗δ∗dt
