@@ -7,7 +7,7 @@ using CppAD::AD;
 
 // TODO: Set the timestep length and duration
 size_t N = 10;
-double dt = 0.05;
+double dt = 0.1;
 
 // This value assumes the model presented in the classroom is used.
 //
@@ -32,7 +32,7 @@ size_t a_start = delta_start + N - 1;
 
 double ref_cte = 0;
 double ref_epsi = 0;
-double ref_v = 60;
+double ref_v = 80;
 
 class FG_eval {
  public:
@@ -54,8 +54,8 @@ class FG_eval {
 
 	     // The part of the cost based on the reference state.
 	     for (int t = 0; t < N; t++) {
-	       fg[0] += 3000*CppAD::pow(vars[cte_start + t]-ref_cte, 2);
-	       fg[0] += 3000*CppAD::pow(vars[epsi_start + t]- ref_epsi, 2);
+	       fg[0] += 2000*CppAD::pow(vars[cte_start + t]-ref_cte, 2);
+	       fg[0] += 2000*CppAD::pow(vars[epsi_start + t]- ref_epsi, 2);
 	       fg[0] += CppAD::pow(vars[v_start + t] - ref_v, 2);
 	     }
 
@@ -114,8 +114,8 @@ class FG_eval {
 	       AD<double> delta0 = vars[delta_start + t - 1];
 	       AD<double> a0 = vars[a_start + t - 1];
 
-	       AD<double> f0 = coeffs[0] + coeffs[1] * x0;
-	       AD<double> psides0 = CppAD::atan(coeffs[1]);
+	       AD<double> f0 = coeffs[0] + coeffs[1] * x0+ coeffs[2]*x0*x0+coeffs[3]*x0*x0*x0;
+	       AD<double> psides0 = CppAD::atan(coeffs[1]+ 2*coeffs[2]*x0+3*coeffs[3]*x0*x0);
 
 	       // Here's `x` to get you started.
 	       // The idea here is to constraint this value to be 0.
@@ -126,7 +126,7 @@ class FG_eval {
 	       // psi_[t] = psi[t-1] + v[t-1] / Lf * delta[t-1] * dt
 	       // v_[t] = v[t-1] + a[t-1] * dt
 	       // cte[t] = f(x[t-1]) - y[t-1] + v[t-1] * sin(epsi[t-1]) * dt
-	       // epsi[t] = psi[t] - psides[t-1] + v[t-1] * delta[t-1] / Lf * dt
+	       // epsi[t] = psi[t] - psides[t + v[t-1] * delta[t-1] / Lf * dt
 	       fg[1 + x_start + t] = x1 - (x0 + v0 * CppAD::cos(psi0) * dt);
 	       fg[1 + y_start + t] = y1 - (y0 + v0 * CppAD::sin(psi0) * dt);
 	       fg[1 + psi_start + t] = psi1 - (psi0 + v0 * delta0 / Lf * dt);

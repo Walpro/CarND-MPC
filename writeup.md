@@ -16,13 +16,15 @@ In this project a kinematic Model is used to model the vehicle, the model consis
 * Vehicle angle orientation(ψ​t)
 * Vehicle speed(vt)
 
-The state incorporates also the distance of vehicle from trajectory and the difference of vehicle orientation and trajectory orientation.
+The state incorporates also the distance of vehicle from trajectory(cte) and the difference of vehicle orientation and trajectory orientation(epsi).
 
 The next state is computed as follows:
 * x​t+1​​ = x​t​​+v​t​​∗cos(ψ​t​​)∗dt
 * y​t+1​​ = y​t​​+v​t​​∗sin(ψ​t​​)∗dt
 * ψ​t+1 ​​= ψ​t​​+​vt/L​f​​​​​​​​∗δ∗dt
 * v​t+1 ​​= v​t​​+a​t​​∗dt
+* cte(t+1)= f(xt) - yt + vt * sin(epsi(t))*dt
+* epsi(t) = ψ​t+1 - psides(t)+ vt * delta(t) / Lf * dt
 
 To control the car two actuators are used, the throttle for vehicle speed control and the steering angle.
 
