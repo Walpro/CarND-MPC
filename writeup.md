@@ -24,7 +24,7 @@ The next state is computed as follows:
 * ψ​t+1 ​​= ψ​t​​+​vt/L​f​​​​​​​​∗δ∗dt
 * v​t+1 ​​= v​t​​+a​t​​∗dt
 * cte(t+1)= f(xt) - yt + vt * sin(epsi(t))*dt
-* epsi(t) = ψ​t+1 - psides(t)+ vt * delta(t) / Lf * dt
+* epsi(t+1) = ψ​t+1 - psides(t)+ vt * delta(t) / Lf * dt
 
 To control the car two actuators are used, the throttle for vehicle speed control and the steering angle.
 
